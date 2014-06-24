@@ -151,7 +151,7 @@ var _ = {};
   _.invoke = function(collection, functionOrKey, args) {
     return _.map(collection,function(item){
       return(typeof(functionOrKey)==='function' ? functionOrKey : item[functionOrKey]).apply(item,args);
-    })
+    });
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -168,6 +168,11 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+    var cur = accumulator === undefined ? collection[0] : accumulator;
+    _.each(collection,function(item){
+      cur = iterator(cur,item);
+    });
+    return cur;
   };
 
   // Determine if the array or object contains a given value (using `===`).
