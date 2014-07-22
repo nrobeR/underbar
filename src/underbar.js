@@ -200,6 +200,14 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    return !_.every(collection,function(item){
+      // Without !_.every, and just looking at !iterator(item), we're looking at all false
+      // And then if !_.every all false, then result is at least 1 is true
+      if(iterator === undefined){
+        return !item;
+      }
+      return !iterator(item);
+    })
   };
 
 
